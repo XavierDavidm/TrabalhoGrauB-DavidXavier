@@ -1,11 +1,34 @@
 import csv
 arquivo = open('BaseDeDadosGatos.csv','w')
 
-
 #funções 
 #1 Cadastrar felino
 def CadastrarFelino():
-    pass
+    dados_csv = []
+    print('inciando cadastro')
+    print('Colocar (-) nos campos que não se sabe')
+    nome=input('digite o nome do novo Felino: ')
+    sexo=input('digete o sexo do gato (m/f): ')
+    idade=int(input('idade do gato: '))
+    raca=input('digite a raça do gato: ')
+    cor=input('digite a cor do gato: ')
+    castrado=input('digite se o gato é castrado (s/n): ')
+    Fiv=input('digite se o cato é vacinado contra FIV+ (s/n): ')
+    Felv=input('digite se o cato é vacinado contra FELV+ (s/n): ')
+    DataResgate=input('digite a data do resgate (dia/mes/ano): ')
+    adotado=input('digite se o gato é adotado (s/n): ')
+    larTemp=input('digite se o gato esta hospedado (s/n): ')
+    dataAdocaoHospedagem=input('digite a data da adoção ou hospedagem (dia/mes/ano): ')
+    Tutor=input('digite o nome do tutor: ')
+    contato=input('digite o número do tutor: ')
+    ultimaVacina=input('digite a data da ultima vacina (dia/mes/ano): ')
+    ultimaVermi=input('digite a data da ultima Desvermifugação (dia/mes/ano): ')
+    ultimoAntipulgas=input('digite a data do ultimo AntiPulgas (dia/mes/ano): ')
+    infoExtra=input('digite qualquer informaçao extra aqui (se tiver): ')
+
+    dados_csv.append([nome, sexo,idade,raca,cor,castrado,Fiv,Felv,DataResgate,adotado,larTemp,dataAdocaoHospedagem,Tutor,contato,ultimaVacina,ultimaVermi,ultimoAntipulgas,infoExtra])
+    arquivo=csv.writer(dados_csv)
+
 
 #2 Alterar status do felino
 def AlterarStatus():
@@ -29,6 +52,7 @@ def salvar():
 
 #main
 encerrar=False
+
 #menu
 while encerrar!=True:
     print('MENU PRINCIPAL:')
