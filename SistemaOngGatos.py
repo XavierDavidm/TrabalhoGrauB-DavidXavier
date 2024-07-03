@@ -1,5 +1,8 @@
-#funções 
+import csv
+arquivo = open('BaseDeDadosGatos.csv','w')
 
+
+#funções 
 #1 Cadastrar felino
 def CadastrarFelino():
     pass
