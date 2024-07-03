@@ -27,16 +27,19 @@ def CadastrarFelino():
     infoExtra=input('digite qualquer informaçao extra aqui (se tiver): ')
 
     dados_csv.append([nome, sexo,idade,raca,cor,castrado,Fiv,Felv,DataResgate,adotado,larTemp,dataAdocaoHospedagem,Tutor,contato,ultimaVacina,ultimaVermi,ultimoAntipulgas,infoExtra])
+    
     arquivo=csv.writer(dados_csv)
 
 
 #2 Alterar status do felino
 def AlterarStatus():
-    pass
+    resposta=input('digite o nome do gato que deseja alterar: ')
+
 
 #3 Consultar informações sobre o felino
 def ConsultarInfo():
-    pass
+    resposta=input('digite o nome do gato que deseja consultar: ')
+
 
 #4 Apresentar estatísticas gerais
 def Estatisticas():
@@ -47,9 +50,9 @@ def filtro():
     pass
 
 #6 Salvar
-def salvar():
-    pass
-
+def salvar(arquivo):
+    arquivo.close()
+    print('arquivo salvo com sucesso!')
 #main
 encerrar=False
 
@@ -76,9 +79,9 @@ while encerrar!=True:
     elif resposta=='5':
         pass
     elif resposta=='6':
-        salvar()
+        salvar(arquivo)
     elif resposta=='7':
-        salvar()
+        salvar(arquivo)
         encerrar=True
         print('encerrando programa...')
     else:
