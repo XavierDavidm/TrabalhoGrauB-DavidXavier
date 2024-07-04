@@ -1,9 +1,13 @@
 import csv
-arquivo = open('BaseDeDadosGatos.csv','w')
+
 
 #funções 
 #1 Cadastrar felino
-def CadastrarFelino():
+def carregador():
+    arquivo=open('BaseDeDadosGatos.csv','w')
+    return arquivo
+
+def CadastrarFelino(arquivo):
     dados_csv = []
     print('inciando cadastro')
     print('Colocar (-) nos campos que não se sabe')
@@ -25,28 +29,28 @@ def CadastrarFelino():
     ultimaVermi=input('digite a data da ultima Desvermifugação (dia/mes/ano): ')
     ultimoAntipulgas=input('digite a data do ultimo AntiPulgas (dia/mes/ano): ')
     infoExtra=input('digite qualquer informaçao extra aqui (se tiver): ')
-
-    dados_csv.append([nome, sexo,idade,raca,cor,castrado,Fiv,Felv,DataResgate,adotado,larTemp,dataAdocaoHospedagem,Tutor,contato,ultimaVacina,ultimaVermi,ultimoAntipulgas,infoExtra])
     
+    dados_csv.append([nome, sexo,idade,raca,cor,castrado,Fiv,Felv,DataResgate,adotado,larTemp,dataAdocaoHospedagem,Tutor,contato,ultimaVacina,ultimaVermi,ultimoAntipulgas,infoExtra])
+    print(dados_csv)
     arquivo=csv.writer(dados_csv)
 
 
 #2 Alterar status do felino
-def AlterarStatus():
+def AlterarStatus(arquivo):
     resposta=input('digite o nome do gato que deseja alterar: ')
 
 
 #3 Consultar informações sobre o felino
-def ConsultarInfo():
+def ConsultarInfo(arquivo):
     resposta=input('digite o nome do gato que deseja consultar: ')
 
 
 #4 Apresentar estatísticas gerais
-def Estatisticas():
+def Estatisticas(arquivo):
     pass
 
 #5 Filtragem de dados
-def filtro():
+def filtro(arquivo):
     pass
 
 #6 Salvar
@@ -57,6 +61,7 @@ def salvar(arquivo):
 encerrar=False
 
 #menu
+arquivo=carregador()
 while encerrar!=True:
     print('MENU PRINCIPAL:')
     print('')
@@ -69,15 +74,15 @@ while encerrar!=True:
     print('7 - Sair do programa ')
     resposta=input('o que deseja fazer? ')
     if resposta=='1':
-        CadastrarFelino()
+        CadastrarFelino(arquivo)
     elif resposta=='2':
-        pass
+        AlterarStatus(arquivo)
     elif resposta=='3':
-        pass
+        ConsultarInfo(arquivo)
     elif resposta=='4':
-        pass
+        Estatisticas(arquivo)
     elif resposta=='5':
-        pass
+        filtro(arquivo)
     elif resposta=='6':
         salvar(arquivo)
     elif resposta=='7':
