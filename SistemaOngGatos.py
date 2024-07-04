@@ -28,21 +28,19 @@ def CadastrarFelino():
     ultimoAntipulgas=input('digite a data do ultimo AntiPulgas (ano): ')
     infoExtra=input('digite qualquer informaçao extra aqui (se tiver): ')
     
-    dados_csv.append([nome,sexo,idade,raca,cor,castrado,Fiv,Felv,DataResgate,adotado,larTemp,dataAdocaoHospedagem,Tutor,contato,ultimaVacina,ultimaVermi,ultimoAntipulgas,infoExtra])
-    #print(dados_csv)
+    dados_csv.append((nome,sexo,idade,raca,cor,castrado,Fiv,Felv,DataResgate,adotado,larTemp,dataAdocaoHospedagem,Tutor,contato,ultimaVacina,ultimaVermi,ultimoAntipulgas,infoExtra))
+
     return dados_csv
     
 
 #2 Alterar status do felino
 def AlterarStatus(geral):
     cont=1
-    for x in range(len(geral)):
+    for x in range(len(geral[0])):
             print(cont,'-',geral[x][0])
             cont=cont+1
-
     resposta=int(input('digite o número do felino que deseja alterar: '))
     indice=resposta-1
-
     cont=1
     for y in range(len(geral)):
             print(cont,'-',geral[indice][y])
@@ -76,6 +74,14 @@ def filtro():
 #main
 encerrar=False
 geral=[]
+#teste
+geral = [
+    ["Frajola", "SRD", 3, "m"],
+    ["Bolinha", "Persa", 2, "f"],
+    ["Rex", "Labrador", 5, "m"],
+    ["Mia", "Siamesa", 1, "f"]
+]
+
 #menu
 arquivo=carregador()
 while encerrar!=True:
@@ -89,9 +95,9 @@ while encerrar!=True:
     print('6 - Salvar ')
     print('7 - Sair do programa ')
     resposta=input('o que deseja fazer? ')
+
     if resposta=='1':
         geral.append(CadastrarFelino())
-        print(geral)
     elif resposta=='2':
         AlterarStatus(geral)
     elif resposta=='3':
