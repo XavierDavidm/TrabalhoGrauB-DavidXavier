@@ -34,19 +34,56 @@ def CadastrarFelino():
 
 #2 Alterar status do felino
 def AlterarStatus(geral):
-    #essa parte escolhe o gato
+    #essa parte escolhe o gato conforme o número selecionado pelo user
     cont=1
     for x in range(len(geral)):
         print(cont,'-',geral[x][0])
         cont=cont+1
     resposta=int(input('digite o número do felino que deseja alterar: '))
     indice=resposta-1
-
+    
+    #printa todos os campos atuais e seu número para alterar
     cont=1
-    for y in range(len(geral)):
-        print(cont,'-',geral[indice][y])
+    for y in range(len(geral[indice])):
+        if cont==1:
+            campo='Nome'
+        elif cont==2:
+            campo='Sexo'
+        elif cont==3:
+            campo='Idade'
+        elif cont==4:
+            campo='Raça'
+        elif cont==5:
+            campo='Cor Predominante'
+        elif cont==6:
+            campo='Castrado'
+        elif cont==7:
+            campo='Vacina FIV+'
+        elif cont==8:
+            campo='Vacina FELV+'
+        elif cont==9:
+            campo='Data de Resgate' 
+        elif cont==10:
+            campo='Adotado' 
+        elif cont==11:
+            campo='Lar Temporário' 
+        elif cont==12:
+            campo='Data de Adoção/Hospedagem' 
+        elif cont==13:
+            campo='Tutor'    
+        elif cont==14:
+            campo='Contato do Tutor' 
+        elif cont==15:
+            campo='Data da última Vacina' 
+        elif cont==16:
+            campo='Data da Última Desvermifugação' 
+        elif cont==17:
+            campo='Data último antipulgas'
+        elif cont==18:
+            campo='Informações Extras' 
+        print(campo,'-',geral[indice][y],'->',cont)
         cont=cont+1
-    resposta=int(input('digite o número da informação que deseja alterar: '))
+    resposta=int(input('digite o número da informação que deseja alterar(->): '))
     coluna=resposta-1
     novaInfo=input('digite a nova informação:  ')
     geral[indice][coluna]=novaInfo
