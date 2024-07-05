@@ -1,4 +1,5 @@
 import csv
+import msvcrt
 #funções 
 #1 Cadastrar felino
 def carregador():
@@ -17,15 +18,15 @@ def CadastrarFelino():
     castrado=input('digite se o gato é castrado (s/n): ')
     Fiv=input('digite se o cato é vacinado contra FIV+ (s/n): ')
     Felv=input('digite se o cato é vacinado contra FELV+ (s/n): ')
-    DataResgate=input('digite a data do resgate (ano): ')
+    DataResgate=input('digite a data do resgate (dia/mês/ano): ')
     adotado=input('digite se o gato é adotado (s/n): ')
     larTemp=input('digite se o gato esta hospedado (s/n): ')
-    dataAdocaoHospedagem=input('digite a data da adoção ou hospedagem (ano): ')
+    dataAdocaoHospedagem=input('digite a data da adoção ou hospedagem (dia/mês/ano): ')
     Tutor=input('digite o nome do tutor: ')
     contato=input('digite o número do tutor: ')
-    ultimaVacina=input('digite a data da ultima vacina (ano): ')
-    ultimaVermi=input('digite a data da ultima Desvermifugação (ano): ')
-    ultimoAntipulgas=input('digite a data do ultimo AntiPulgas (ano): ')
+    ultimaVacina=input('digite a data da ultima vacina (dia/mês/ano): ')
+    ultimaVermi=input('digite a data da ultima Desvermifugação (dia/mês/ano): ')
+    ultimoAntipulgas=input('digite a data do ultimo AntiPulgas (dia/mês/ano): ')
     infoExtra=input('digite qualquer informaçao extra aqui (se tiver): ')
     dadosCadastro=[nome,sexo,idade,raca,cor,castrado,Fiv,Felv,DataResgate,adotado,larTemp,dataAdocaoHospedagem,Tutor,contato,ultimaVacina,ultimaVermi,ultimoAntipulgas,infoExtra]
     print(dadosCadastro)
@@ -41,11 +42,12 @@ def AlterarStatus(geral):
         cont=cont+1
     resposta=int(input('digite o número do felino que deseja alterar: '))
     indice=resposta-1
+    print('---------------------------------------------------------')
     
     #printa todos os campos atuais e seu número para alterar
     cont=1
-    for y in range(len(geral[indice])):
-        if cont==1:
+    for y in range(len(geral[indice])): 
+        if cont==1: #ainda não sei de um jeito melhor mas colquei uma mensagem para cada cont como o nome de um campo
             campo='Nome'
         elif cont==2:
             campo='Sexo'
@@ -81,17 +83,67 @@ def AlterarStatus(geral):
             campo='Data último antipulgas'
         elif cont==18:
             campo='Informações Extras' 
-        print(campo,'-',geral[indice][y],'->',cont)
+        print(campo,':',geral[indice][y],'->',cont)
         cont=cont+1
     resposta=int(input('digite o número da informação que deseja alterar(->): '))
     coluna=resposta-1
     novaInfo=input('digite a nova informação:  ')
     geral[indice][coluna]=novaInfo
-    #return geral
+    print('---------------------------------------------------------')
+    return geral
 
 #3 Consultar informações sobre o felino
 def ConsultarInfo(geral):
-    pass
+        cont=1
+        for x in range(len(geral)):
+            print(cont,'-',geral[x][0])
+            cont=cont+1
+        resposta=int(input('digite o número do felino que deseja consultar: '))
+        indice=resposta-1
+        print('---------------------------------------------------------')
+        cont=1
+        for y in range(len(geral[indice])): 
+            if cont==1: #ainda não sei de um jeito melhor mas colquei uma mensagem para cada cont como o nome de um campo
+                campo='Nome'
+            elif cont==2:
+                campo='Sexo'
+            elif cont==3:
+                campo='Idade'
+            elif cont==4:
+                campo='Raça'
+            elif cont==5:
+                campo='Cor Predominante'
+            elif cont==6:
+                campo='Castrado'
+            elif cont==7:
+                campo='Vacina FIV+'
+            elif cont==8:
+                campo='Vacina FELV+'
+            elif cont==9:
+                campo='Data de Resgate' 
+            elif cont==10:
+                campo='Adotado' 
+            elif cont==11:
+                campo='Lar Temporário' 
+            elif cont==12:
+                campo='Data de Adoção/Hospedagem' 
+            elif cont==13:
+                campo='Tutor'    
+            elif cont==14:
+                campo='Contato do Tutor' 
+            elif cont==15:
+                campo='Data da última Vacina' 
+            elif cont==16:
+                campo='Data da Última Desvermifugação' 
+            elif cont==17:
+                campo='Data último antipulgas'
+            elif cont==18:
+                campo='Informações Extras' 
+            print(campo,':',geral[indice][y])
+            cont=cont+1
+        print("Pressione qualquer tecla para continuar...")
+        msvcrt.getch()
+        print('---------------------------------------------------------')
 
 
 #4 Apresentar estatísticas gerais
@@ -111,14 +163,15 @@ def filtro():
 
 #main
 encerrar=False
+arquivo=carregador()
 geral=[]
+
 #teste
 geral=[
-    ['vito', 'm', 1, '-', 'preto', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    ['juju', 'm', 10, '-', 'branca', 's', '', '', '', '', '', '', '', '', '', '', '', '']
+    ['vito', 'm', 1, 'Sphynx', 'preto', 'n', 'n', 'n', '21/05/2023', 'n', '', '', '', '', '', '', '', '*Pata direita da frente Manca'],
+    ['juju', 'f', 10, 'Ragdoll', 'branca', 's', 's', 's', '10/09/2021', 's', '', '', '', '', '', '', '', '']
 ]
 #menu
-arquivo=carregador()
 while encerrar!=True:
     print('MENU PRINCIPAL:')
     print('')
@@ -130,6 +183,7 @@ while encerrar!=True:
     print('6 - Salvar ')
     print('7 - Sair do programa ')
     resposta=input('o que deseja fazer? ')
+    print('---------------------------------------------------------')
 
     if resposta=='1':
         dadosCadastro=CadastrarFelino()
@@ -137,7 +191,7 @@ while encerrar!=True:
     elif resposta=='2':
         AlterarStatus(geral)
     elif resposta=='3':
-        ConsultarInfo()
+        ConsultarInfo(geral)
     elif resposta=='4':
         Estatisticas()
     elif resposta=='5':
@@ -151,7 +205,3 @@ while encerrar!=True:
     else:
         print('ERRO! por favor digite a ação conforme o menu')
 
-for L in range(len(geral)):
-    for C in range(len(geral[0])):
-        print(geral[L][C], end="\t")
-    print()
