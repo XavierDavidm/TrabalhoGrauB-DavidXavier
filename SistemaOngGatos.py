@@ -1,11 +1,14 @@
 import csv
 import msvcrt
+
 #funções 
-#1 Cadastrar felino
+
+#CARREGADOR
 def carregador():
     arquivo=open('BaseDeDadosGatos.csv','w')
     return arquivo
 
+#1 Cadastrar felino
 def CadastrarFelino():
     dadosCadastro=[]
     print('inciando cadastro...')
@@ -231,6 +234,7 @@ def Estatisticas(geral):
     print("Pressione qualquer tecla para continuar...")
     msvcrt.getch()
     print('---------------------------------------------------------')
+
 #5 Filtragem de dados
 def filtro(geral):
     pass
@@ -245,11 +249,12 @@ encerrar=False
 arquivo=carregador()
 geral=[]
 
-#teste #1     #2   #3    #4      #5       #6   #7   #8    #9         #10
+
 geral=[
-    ['Vito', 'm', 1, 'Sphynx', 'preto', 'n', 's', 's', '21/05/2023', 'n', 's', '', '', '', '', '', '', '*Pata direita da frente Manca'],
+    ['Vito', 'm', 1, 'Sphynx', 'preto', 'n', 's', 's', '21/05/2023', 'n', 's', '', '', '', '', '', '', '*Pata direita frontal Manca'],
     ['Juju', 'f', 10, 'Ragdoll', 'branca', 's', 'n', 'n', '10/09/2021', 's', 'n', '', '', '', '', '', '', ''],
     ['Mozart', 'M', 7, 'Birmanês', 'branco', 'n', 's', 'n', '16/02/2019', 's', 'n', '', '', '', '', '', '', '*gosta de ouvir música classica']
+    
 ]
 
 #menu
