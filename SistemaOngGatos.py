@@ -6,7 +6,7 @@ def carregador():
     return arquivo
 
 def CadastrarFelino():
-    dados_csv = []
+    dadosCadastro=[]
     print('inciando cadastro...')
     print('Colocar (-) nos campos que não se sabe')
     nome=input('digite o nome do novo Felino: ')
@@ -27,24 +27,25 @@ def CadastrarFelino():
     ultimaVermi=input('digite a data da ultima Desvermifugação (ano): ')
     ultimoAntipulgas=input('digite a data do ultimo AntiPulgas (ano): ')
     infoExtra=input('digite qualquer informaçao extra aqui (se tiver): ')
-    
-    dados_csv.append((nome,sexo,idade,raca,cor,castrado,Fiv,Felv,DataResgate,adotado,larTemp,dataAdocaoHospedagem,Tutor,contato,ultimaVacina,ultimaVermi,ultimoAntipulgas,infoExtra))
-
-    return dados_csv
+    dadosCadastro=[nome,sexo,idade,raca,cor,castrado,Fiv,Felv,DataResgate,adotado,larTemp,dataAdocaoHospedagem,Tutor,contato,ultimaVacina,ultimaVermi,ultimoAntipulgas,infoExtra]
+    print(dadosCadastro)
+    return dadosCadastro
     
 
 #2 Alterar status do felino
 def AlterarStatus(geral):
+    #essa parte escolhe o gato
     cont=1
-    for x in range(len(geral[0])):
-            print(cont,'-',geral[x][0])
-            cont=cont+1
+    for x in range(len(geral)):
+        print(cont,'-',geral[x][0])
+        cont=cont+1
     resposta=int(input('digite o número do felino que deseja alterar: '))
     indice=resposta-1
+
     cont=1
     for y in range(len(geral)):
-            print(cont,'-',geral[indice][y])
-            cont=cont+1
+        print(cont,'-',geral[indice][y])
+        cont=cont+1
     resposta=int(input('digite o número da informação que deseja alterar: '))
     coluna=resposta-1
     novaInfo=input('digite a nova informação:  ')
@@ -75,13 +76,10 @@ def filtro():
 encerrar=False
 geral=[]
 #teste
-geral = [
-    ["Frajola", "SRD", 3, "m"],
-    ["Bolinha", "Persa", 2, "f"],
-    ["Rex", "Labrador", 5, "m"],
-    ["Mia", "Siamesa", 1, "f"]
+geral=[
+    ['vito', 'm', 1, '-', 'preto', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+    ['juju', 'm', 10, '-', 'branca', 's', '', '', '', '', '', '', '', '', '', '', '', '']
 ]
-
 #menu
 arquivo=carregador()
 while encerrar!=True:
@@ -97,7 +95,8 @@ while encerrar!=True:
     resposta=input('o que deseja fazer? ')
 
     if resposta=='1':
-        geral.append(CadastrarFelino())
+        dadosCadastro=CadastrarFelino()
+        geral.append(dadosCadastro)
     elif resposta=='2':
         AlterarStatus(geral)
     elif resposta=='3':
