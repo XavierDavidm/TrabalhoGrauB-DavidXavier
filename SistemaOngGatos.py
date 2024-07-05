@@ -16,8 +16,8 @@ def CadastrarFelino():
     raca=input('digite a raça do gato: ')
     cor=input('digite a cor do gato: ')
     castrado=input('digite se o gato é castrado (s/n): ')
-    Fiv=input('digite se o cato é vacinado contra FIV+ (s/n): ')
-    Felv=input('digite se o cato é vacinado contra FELV+ (s/n): ')
+    Fiv=input('digite se o gato possui FIV+ (s/n): ')
+    Felv=input('digite se o gato possui FELV+ (s/n): ')
     DataResgate=input('digite a data do resgate (dia/mês/ano): ')
     adotado=input('digite se o gato é adotado (s/n): ')
     larTemp=input('digite se o gato esta hospedado (s/n): ')
@@ -165,17 +165,78 @@ def ConsultarInfo(geral):
         print('---------------------------------------------------------')
 
 #4 Apresentar estatísticas gerais
-def Estatisticas():
-    pass
-    #dividir por 100 
-    #fazer e acessar contadores individuas com base no arquivo da base de dados
-
+def Estatisticas(geral):
+    print('Estatístiscas Gerais')
+    MachoCont=0
+    FemeaCont=0
+    NCont=0
+    #machos e femeas
+    for x in range(len(geral)):
+        if geral[x][1]=='m' or geral[x][1]=='M':
+            MachoCont=MachoCont+1
+        elif geral[x][1]=='f' or geral[x][1]=='F':
+            FemeaCont=FemeaCont+1
+        else:
+            NCont=NCont+1
+    total=len(geral)
+    #porcentagens M/F
+    Pmacho=MachoCont/total*100
+    Pfemea=FemeaCont/total*100
+    Pn=NCont/total*100
+    if NCont>0: #essa parte mostra se tiver cadastro incorreto
+        print('a porcentagem de Gatos Machos é',round(Pmacho),'%')
+        print('a porcentagem de Gatas Fêmeas é',round(Pfemea),'%')
+        print('existe uma porcentagem de',Pn,'dos felinos que não estão cadastrados corretamente entre Macho ou Fêmea(M/F)')
+    else:
+        print('a porcentagem de Gatos Machos é',round(Pmacho),'%')
+        print('a porcentagem de Gatas Fêmeas é',round(Pfemea),'%')
+    print()
+    #adoção
+    contAdo=0
+    contnaoAdo=0
+    for x in range(len(geral)):
+        if geral[x][9]=='s' or geral[x][9]=='S':
+            contAdo=contAdo+1
+        elif geral[x][9]=='n' or geral[x][9]=='N':
+            contnaoAdo=contnaoAdo+1
+        else: #se não tiver nada ou - contará como não adotado
+             contnaoAdo=contnaoAdo+1
+    Pado=contAdo/total*100
+    PnAdo=contnaoAdo/total*100
+    print('a porcentagem de Gatos Adotados é',round(Pado),'%')
+    print('a porcentagem de Gatos Não Adotados é',round(PnAdo),'%')
+    print()
+    #Doenças
+    contLimpo=0
+    contFiv=0
+    contFelv=0
+    contAmbas=0
+    for x in range(len(geral)):
+        if (geral[x][6]=='n' or geral[x][6]=='n') and (geral[x][7]=='n' or geral[x][7]=='N'):
+            contLimpo=contLimpo+1
+        elif (geral[x][6]=='s' or geral[x][6]=='S') and (geral[x][7]=='s' or geral[x][7]=='S'):
+            contAmbas=contAmbas+1
+        elif (geral[x][6]=='s' or geral[x][6]=='S'):
+            contFiv=contFiv+1
+        elif (geral[x][7]=='s' or geral[x][7]=='S'):
+            contFelv=contFelv+1
+    Plimpo=contLimpo/total*100
+    Pfiv=contFiv/total*100
+    Pfelv=contFelv/total*100
+    Pambas=contAmbas/total*100
+    print('a Porcentagem de gatos que não apresenta nem FIV+ nem FELV+ é',round(Plimpo),'%')
+    print('a Porcentagem de gatos que apresenta Apenas FIV+ é',round(Pfiv),'%')
+    print('a Porcentagem de gatos que apresenta Apenas FELV+ é',round(Pfelv),'%')
+    print('a Porcentagem de gatos que apresenta Ambas FIV+ e FELV+ é',round(Pambas),'%')
+    print("Pressione qualquer tecla para continuar...")
+    msvcrt.getch()
+    print('---------------------------------------------------------')
 #5 Filtragem de dados
-def filtro():
+def filtro(geral):
     pass
 
 #6 Salvar
-#def salvar(arquivo):
+#def salvar(geral):
     #arquivo.close()
     #print('arquivo salvo com sucesso!')
 
@@ -184,10 +245,11 @@ encerrar=False
 arquivo=carregador()
 geral=[]
 
-#teste
+#teste #1     #2   #3    #4      #5       #6   #7   #8    #9         #10
 geral=[
-    ['vito', 'm', 1, 'Sphynx', 'preto', 'n', 'n', 'n', '21/05/2023', 'n', '', '', '', '', '', '', '', '*Pata direita da frente Manca'],
-    ['juju', 'f', 10, 'Ragdoll', 'branca', 's', 's', 's', '10/09/2021', 's', '', '', '', '', '', '', '', '']
+    ['Vito', 'm', 1, 'Sphynx', 'preto', 'n', 's', 's', '21/05/2023', 'n', 's', '', '', '', '', '', '', '*Pata direita da frente Manca'],
+    ['Juju', 'f', 10, 'Ragdoll', 'branca', 's', 'n', 'n', '10/09/2021', 's', 'n', '', '', '', '', '', '', ''],
+    ['Mozart', 'M', 7, 'Birmanês', 'branco', 'n', 's', 'n', '16/02/2019', 's', 'n', '', '', '', '', '', '', '*gosta de ouvir música classica']
 ]
 
 #menu
@@ -201,7 +263,7 @@ while encerrar!=True:
     print('5 - Filtro de dados ')
     print('6 - Salvar ')
     print('7 - Sair do programa ')
-    resposta=input('o que deseja fazer? ')
+    resposta=input('O que deseja fazer? ')
     print('---------------------------------------------------------')
 
     if resposta=='1':
@@ -212,14 +274,14 @@ while encerrar!=True:
     elif resposta=='3':
         ConsultarInfo(geral)
     elif resposta=='4':
-        Estatisticas()
+        Estatisticas(geral)
     elif resposta=='5':
-        filtro()
+        filtro(geral)
     #elif resposta=='6':
-        #salvar()
+        #salvar(geral)
     elif resposta=='7':
-        #salvar()
+        #salvar(geral)
         encerrar=True
-        print('encerrando programa...')
+        print('Encerrando o Programa...')
     else:
         print('ERRO! por favor digite a ação conforme o menu')
