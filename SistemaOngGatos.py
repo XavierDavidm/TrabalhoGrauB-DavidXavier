@@ -236,13 +236,155 @@ def Estatisticas(geral):
     print('---------------------------------------------------------')
 
 #5 Filtragem de dados
+
 def filtro(geral):
-    pass
+    encerrar=False
+    #if resposta==1
+    while encerrar!=True:
+        print('MENU do filtro')
+        print()
+        print('Opções de filtragem')
+        print('1 - Filtrar por Data Resgate')
+        print('2 - Filtrar por Data Adoção')
+        print('0 - Voltar ao Menu Principal')
+        resposta=int(input('digite a opção que deseja: '))
+        print('---------------------------------------------------------')
+        if resposta==1:
+            AnoInicio=int(input('digite o ano de inicio que deseja filtrar os resgates: '))
+            AnoFim=int(input('digite o ano de limite que deseja filtrar os resgates: '))
+            cont=1
+            print('Lista de Bixinhos Resgatados entre',AnoInicio,'Até',AnoFim)
+            for x in range(len(geral)):
+                ano=geral[x][8]
+                ano=ano[-4:]
+                ano=int(ano)
+                if ano >=AnoInicio and ano <=AnoFim:
+                    print(cont,'-',geral[x][0])
+                    cont=cont+1 
+            
+            resposta=int(input('digite o número do felino que deseja consultar: '))
+
+            indice=resposta
+            print('---------------------------------------------------------')
+            cont=1
+            if resposta==indice and (ano >=AnoInicio and ano <=AnoFim):
+                for y in range(len(geral[indice])): 
+                    if cont==1:
+                        campo='Nome'
+                    elif cont==2:
+                        campo='Sexo'
+                    elif cont==3:
+                        campo='Idade'
+                    elif cont==4:
+                        campo='Raça'
+                    elif cont==5:
+                        campo='Cor Predominante'
+                    elif cont==6:
+                        campo='Castrado'
+                    elif cont==7:
+                        campo='Vacina FIV+'
+                    elif cont==8:
+                        campo='Vacina FELV+'
+                    elif cont==9:
+                        campo='Data de Resgate' 
+                    elif cont==10:
+                        campo='Adotado' 
+                    elif cont==11:
+                        campo='Lar Temporário' 
+                    elif cont==12:
+                        campo='Data de Adoção/Hospedagem' 
+                    elif cont==13:
+                        campo='Tutor'    
+                    elif cont==14:
+                        campo='Contato do Tutor' 
+                    elif cont==15:
+                        campo='Data da última Vacina' 
+                    elif cont==16:
+                        campo='Data da Última Desvermifugação' 
+                    elif cont==17:
+                        campo='Data último antipulgas'
+                    elif cont==18:
+                        campo='Informações Extras' 
+                    print(campo,':',geral[indice][y])
+                    cont=cont+1
+                print("Pressione qualquer tecla para continuar...")
+                msvcrt.getch()
+                print('---------------------------------------------------------')
+
+        elif resposta==2:
+            AnoInicio=int(input('digite o ano de inicio que deseja filtrar as Adoções: '))
+            AnoFim=int(input('digite o ano de limite que deseja filtrar as Adoções: '))
+            cont=1
+            print('Lista de Bixinhos Adotados entre',AnoInicio,'Até',AnoFim)
+            
+            for x in range(len(geral)):
+                ano=geral[x][11]
+                ano=ano[-4:]
+                ano=int(ano)
+                if (ano >=AnoInicio and ano <=AnoFim) and (geral[x][9]=='s' or geral[x][9]=='S'):
+                    print(cont,'-',geral[x][0])
+                    cont=cont+1 
+            
+            resposta=int(input('digite o número do felino que deseja consultar: '))
+
+            indice=resposta
+            print('---------------------------------------------------------')
+            cont=1
+            if resposta==indice and (ano >=AnoInicio and ano <=AnoFim):
+                for y in range(len(geral[indice])): 
+                    if cont==1:
+                        campo='Nome'
+                    elif cont==2:
+                        campo='Sexo'
+                    elif cont==3:
+                        campo='Idade'
+                    elif cont==4:
+                        campo='Raça'
+                    elif cont==5:
+                        campo='Cor Predominante'
+                    elif cont==6:
+                        campo='Castrado'
+                    elif cont==7:
+                        campo='Vacina FIV+'
+                    elif cont==8:
+                        campo='Vacina FELV+'
+                    elif cont==9:
+                        campo='Data de Resgate' 
+                    elif cont==10:
+                        campo='Adotado' 
+                    elif cont==11:
+                        campo='Lar Temporário' 
+                    elif cont==12:
+                        campo='Data de Adoção/Hospedagem' 
+                    elif cont==13:
+                        campo='Tutor'    
+                    elif cont==14:
+                        campo='Contato do Tutor' 
+                    elif cont==15:
+                        campo='Data da última Vacina' 
+                    elif cont==16:
+                        campo='Data da Última Desvermifugação' 
+                    elif cont==17:
+                        campo='Data último antipulgas'
+                    elif cont==18:
+                        campo='Informações Extras' 
+                    print(campo,':',geral[indice][y])
+                    cont=cont+1
+                print("Pressione qualquer tecla para continuar...")
+                msvcrt.getch()
+                print('---------------------------------------------------------')
+
+
+        elif resposta==0:
+            encerrar=True
+        else:
+            print('Erro! por favor digite o um número conforme as opções')
+            print()
 
 #6 Salvar
-#def salvar(geral):
-    #arquivo.close()
-    #print('arquivo salvo com sucesso!')
+def salvar(geral):
+    arquivo.close()
+    print('arquivo salvo com sucesso!')
 
 #main
 encerrar=False
@@ -251,9 +393,9 @@ geral=[]
 
 
 geral=[
-    ['Vito', 'm', 1, 'Sphynx', 'preto', 'n', 's', 's', '21/05/2023', 'n', 's', '', '', '', '', '', '', '*Pata direita frontal Manca'],
-    ['Juju', 'f', 10, 'Ragdoll', 'branca', 's', 'n', 'n', '10/09/2021', 's', 'n', '', '', '', '', '', '', ''],
-    ['Mozart', 'M', 7, 'Birmanês', 'branco', 'n', 's', 'n', '16/02/2019', 's', 'n', '', '', '', '', '', '', '*gosta de ouvir música classica']
+    ['Vito', 'm', 1, 'Sphynx', 'preto', 'n', 's', 's', '21/05/2023', 'n', 's', '28/07/2023', '', '', '', '', '', '*Pata direita frontal Manca'],
+    ['Juju', 'f', 10, 'Ragdoll', 'branca', 's', 'n', 'n', '10/09/2021', 's', 'n', '15/01/2022', '', '', '', '', '', ''],
+    ['Mozart', 'M', 7, 'Birmanês', 'branco', 'n', 's', 'n', '16/02/2019', 's', 'n', '28/03/2019', '', '', '', '', '', '*gosta de ouvir música classica']
     
 ]
 
@@ -282,8 +424,8 @@ while encerrar!=True:
         Estatisticas(geral)
     elif resposta=='5':
         filtro(geral)
-    #elif resposta=='6':
-        #salvar(geral)
+    elif resposta=='6':
+        salvar(geral)
     elif resposta=='7':
         #salvar(geral)
         encerrar=True
