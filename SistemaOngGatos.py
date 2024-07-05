@@ -32,68 +32,87 @@ def CadastrarFelino():
     print(dadosCadastro)
     return dadosCadastro
     
-
 #2 Alterar status do felino
 def AlterarStatus(geral):
     #essa parte escolhe o gato conforme o número selecionado pelo user
-    cont=1
-    for x in range(len(geral)):
-        print(cont,'-',geral[x][0])
-        cont=cont+1
-    resposta=int(input('digite o número do felino que deseja alterar: '))
-    indice=resposta-1
-    print('---------------------------------------------------------')
-    
-    #printa todos os campos atuais e seu número para alterar
-    cont=1
-    for y in range(len(geral[indice])): 
-        if cont==1: #ainda não sei de um jeito melhor mas colquei uma mensagem para cada cont como o nome de um campo
-            campo='Nome'
-        elif cont==2:
-            campo='Sexo'
-        elif cont==3:
-            campo='Idade'
-        elif cont==4:
-            campo='Raça'
-        elif cont==5:
-            campo='Cor Predominante'
-        elif cont==6:
-            campo='Castrado'
-        elif cont==7:
-            campo='Vacina FIV+'
-        elif cont==8:
-            campo='Vacina FELV+'
-        elif cont==9:
-            campo='Data de Resgate' 
-        elif cont==10:
-            campo='Adotado' 
-        elif cont==11:
-            campo='Lar Temporário' 
-        elif cont==12:
-            campo='Data de Adoção/Hospedagem' 
-        elif cont==13:
-            campo='Tutor'    
-        elif cont==14:
-            campo='Contato do Tutor' 
-        elif cont==15:
-            campo='Data da última Vacina' 
-        elif cont==16:
-            campo='Data da Última Desvermifugação' 
-        elif cont==17:
-            campo='Data último antipulgas'
-        elif cont==18:
-            campo='Informações Extras' 
-        print(campo,':',geral[indice][y],'->',cont)
-        cont=cont+1
-    resposta=int(input('digite o número da informação que deseja alterar(->): '))
-    coluna=resposta-1
-    novaInfo=input('digite a nova informação:  ')
-    geral[indice][coluna]=novaInfo
+    print('Lista de Bixinhos Cadastrados')
+    selecionando=True
+    while selecionando !=False:
+        cont=1
+        for x in range(len(geral)):
+            print(cont,'-',geral[x][0])
+            cont=cont+1
+        print('Voltar ao Menu -> 0')
+        resposta=int(input('digite o número do felino que deseja alterar: '))
+        if resposta==0:
+            selecionando=False
+            print('Retornando ao MENU...')
+        else:
+            indice=resposta-1
+            print('---------------------------------------------------------')
+
+            editando=True
+            while editando!=False:
+                #printa todos os campos atuais e seu número para alterar
+                cont=1
+                print('Informações sobre',geral[indice][0])
+                for y in range(len(geral[indice])): 
+                    if cont==1: #ainda não sei de um jeito melhor mas colquei uma mensagem para cada cont como o nome de um campo
+                        campo='Nome'
+                    elif cont==2:
+                        campo='Sexo'
+                    elif cont==3:
+                        campo='Idade'
+                    elif cont==4:
+                        campo='Raça'
+                    elif cont==5:
+                        campo='Cor Predominante'
+                    elif cont==6:
+                        campo='Castrado'
+                    elif cont==7:
+                        campo='Vacina FIV+'
+                    elif cont==8:
+                        campo='Vacina FELV+'
+                    elif cont==9:
+                        campo='Data de Resgate' 
+                    elif cont==10:
+                        campo='Adotado' 
+                    elif cont==11:
+                        campo='Lar Temporário' 
+                    elif cont==12:
+                        campo='Data de Adoção/Hospedagem' 
+                    elif cont==13:
+                        campo='Tutor'    
+                    elif cont==14:
+                        campo='Contato do Tutor' 
+                    elif cont==15:
+                        campo='Data da última Vacina' 
+                    elif cont==16:
+                        campo='Data da Última Desvermifugação' 
+                    elif cont==17:
+                        campo='Data último antipulgas'
+                    elif cont==18:
+                        campo='Informações Extras' 
+                    print(campo,':',geral[indice][y],'->',cont)
+                    cont=cont+1
+                print('Voltar a Seleção -> 0')
+                resposta=int(input('digite o número da informação que deseja alterar(->): '))
+                if resposta==0:
+                    editando=False
+                else:
+                    coluna=resposta-1
+                    infovelha=geral[indice][coluna]
+                    novaInfo=input('digite a nova informação:  ')
+                    geral[indice][coluna]=novaInfo
+                    print('mudando',infovelha,'para',novaInfo)
+                    print('Alteração realizada com Sucesso!')
+                    print('---------------------------------------------------------')
     print('---------------------------------------------------------')
     return geral
 
 #3 Consultar informações sobre o felino
 def ConsultarInfo(geral):
+        print('Lista de Bixinhos Cadastrados')
         cont=1
         for x in range(len(geral)):
             print(cont,'-',geral[x][0])
@@ -145,7 +164,6 @@ def ConsultarInfo(geral):
         msvcrt.getch()
         print('---------------------------------------------------------')
 
-
 #4 Apresentar estatísticas gerais
 def Estatisticas():
     pass
@@ -171,6 +189,7 @@ geral=[
     ['vito', 'm', 1, 'Sphynx', 'preto', 'n', 'n', 'n', '21/05/2023', 'n', '', '', '', '', '', '', '', '*Pata direita da frente Manca'],
     ['juju', 'f', 10, 'Ragdoll', 'branca', 's', 's', 's', '10/09/2021', 's', '', '', '', '', '', '', '', '']
 ]
+
 #menu
 while encerrar!=True:
     print('MENU PRINCIPAL:')
@@ -204,4 +223,3 @@ while encerrar!=True:
         print('encerrando programa...')
     else:
         print('ERRO! por favor digite a ação conforme o menu')
-
