@@ -128,46 +128,16 @@ def ConsultarInfo(geral):
         resposta=int(input('digite o número do felino que deseja consultar: '))
         indice=resposta-1
         print('---------------------------------------------------------')
-        cont=1
-        for y in range(len(geral[indice])): 
-            if cont==1: #ainda não sei de um jeito melhor mas colquei uma mensagem para cada cont como o nome de um campo
-                campo='Nome'
-            elif cont==2:
-                campo='Sexo'
-            elif cont==3:
-                campo='Idade'
-            elif cont==4:
-                campo='Raça'
-            elif cont==5:
-                campo='Cor Predominante'
-            elif cont==6:
-                campo='Castrado'
-            elif cont==7:
-                campo='Vacina FIV+'
-            elif cont==8:
-                campo='Vacina FELV+'
-            elif cont==9:
-                campo='Data de Resgate' 
-            elif cont==10:
-                campo='Adotado' 
-            elif cont==11:
-                campo='Lar Temporário' 
-            elif cont==12:
-                campo='Data de Adoção/Hospedagem' 
-            elif cont==13:
-                campo='Tutor'    
-            elif cont==14:
-                campo='Contato do Tutor' 
-            elif cont==15:
-                campo='Data da última Vacina' 
-            elif cont==16:
-                campo='Data da Última Desvermifugação' 
-            elif cont==17:
-                campo='Data último antipulgas'
-            elif cont==18:
-                campo='Informações Extras' 
-            print(campo,':',geral[indice][y])
-            cont=cont+1
+        nomes_campos = {
+        0: 'Nome', 1: 'Sexo', 2: 'Idade', 3: 'Raça', 4: 'Cor Predominante',
+        5: 'Castrado', 6: 'Vacina FIV+', 7: 'Vacina FELV+', 8: 'Data de Resgate',
+        9: 'Adotado', 10: 'Lar Temporário', 11: 'Data de Adoção/Hospedagem',
+        12: 'Tutor', 13: 'Contato do Tutor', 14: 'Data da última Vacina',
+        15: 'Data da Última Desvermifugação', 16: 'Data último antipulgas',
+        17: 'Informações Extras'}
+        for y, valor in enumerate(geral[indice]):
+            campo = nomes_campos[y]
+            print(f'{campo}: {valor}')
         print("Pressione qualquer tecla para continuar...")
         msvcrt.getch()
         print('---------------------------------------------------------')
@@ -251,133 +221,90 @@ def filtro(geral):
         print('1 - Filtrar por Data Resgate')
         print('2 - Filtrar por Data Adoção')
         print('0 - Voltar ao Menu Principal')
+
         resposta=int(input('digite a opção que deseja: '))
         print('---------------------------------------------------------')
+        
         if resposta==1:
+            #parametros do filtro de resgate
             AnoInicio=int(input('digite o ano de inicio que deseja filtrar os resgates: '))
             AnoFim=int(input('digite o ano de limite que deseja filtrar os resgates: '))
-            cont=1
-            print('Lista de Bixinhos Resgatados entre',AnoInicio,'Até',AnoFim)
-            for x in range(len(geral)):
-                ano=geral[x][8]
-                ano=ano[-4:]
-                ano=int(ano)
-                if ano >=AnoInicio and ano <=AnoFim:
-                    print(cont,'-',geral[x][0])
-                    cont=cont+1 
             
-            resposta=int(input('digite o número do felino que deseja consultar: '))
-
-            indice=resposta
+            cont=0
+            opcoesFelinos = [] #irá armazenar os bixinhos validos
+            
+            print(f'Lista de Bixinhos Resgatados entre {AnoInicio} e {AnoFim}:')
+            for i in range(len(geral)):
+                ano_resgate = int(geral[i][8][-4:]) 
+                if ano_resgate >= AnoInicio and ano_resgate <= AnoFim:
+                    print(f'{cont} - {geral[i][0]}')
+                    opcoesFelinos.append(i)  
+                    cont += 1
+            if cont == 0:
+                print('Nenhum Felino encontrado no intervalo de tempo especificado.')
+                continue
+            #escolha do gato
+            resposta= int(input('Digite o número do animal que deseja consultar: '))
+            #validação
+            if resposta < 0 or resposta >= len(opcoesFelinos):
+                print('Opção inválida.')
+                continue
+            #resultado
+            indice=opcoesFelinos[resposta]
+            nomes_campos = {
+            0: 'Nome', 1: 'Sexo', 2: 'Idade', 3: 'Raça', 4: 'Cor Predominante',
+            5: 'Castrado', 6: 'Vacina FIV+', 7: 'Vacina FELV+', 8: 'Data de Resgate',
+            9: 'Adotado', 10: 'Lar Temporário', 11: 'Data de Adoção/Hospedagem',
+            12: 'Tutor', 13: 'Contato do Tutor', 14: 'Data da última Vacina',
+            15: 'Data da Última Desvermifugação', 16: 'Data último antipulgas',
+            17: 'Informações Extras'}
+            for y, valor in enumerate(geral[indice]):
+                campo = nomes_campos[y]
+                print(f'{campo}: {valor}')
+            print("Pressione qualquer tecla para continuar...")
+            msvcrt.getch()
             print('---------------------------------------------------------')
-            cont=1
-            if resposta==indice and (ano >=AnoInicio and ano <=AnoFim):
-                for y in range(len(geral[indice])): 
-                    if cont==1:
-                        campo='Nome'
-                    elif cont==2:
-                        campo='Sexo'
-                    elif cont==3:
-                        campo='Idade'
-                    elif cont==4:
-                        campo='Raça'
-                    elif cont==5:
-                        campo='Cor Predominante'
-                    elif cont==6:
-                        campo='Castrado'
-                    elif cont==7:
-                        campo='Vacina FIV+'
-                    elif cont==8:
-                        campo='Vacina FELV+'
-                    elif cont==9:
-                        campo='Data de Resgate' 
-                    elif cont==10:
-                        campo='Adotado' 
-                    elif cont==11:
-                        campo='Lar Temporário' 
-                    elif cont==12:
-                        campo='Data de Adoção/Hospedagem' 
-                    elif cont==13:
-                        campo='Tutor'    
-                    elif cont==14:
-                        campo='Contato do Tutor' 
-                    elif cont==15:
-                        campo='Data da última Vacina' 
-                    elif cont==16:
-                        campo='Data da Última Desvermifugação' 
-                    elif cont==17:
-                        campo='Data último antipulgas'
-                    elif cont==18:
-                        campo='Informações Extras' 
-                    print(campo,':',geral[indice][y])
-                    cont=cont+1
-                print("Pressione qualquer tecla para continuar...")
-                msvcrt.getch()
-                print('---------------------------------------------------------')
 
         elif resposta==2:
-            AnoInicio=int(input('digite o ano de inicio que deseja filtrar as Adoções: '))
-            AnoFim=int(input('digite o ano de limite que deseja filtrar as Adoções: '))
-            cont=1
-            print('Lista de Bixinhos Adotados entre',AnoInicio,'Até',AnoFim)
+            #parametros do filtro de adoção
+            AnoInicio=int(input('digite o ano de inicio que deseja filtrar as adoções: '))
+            AnoFim=int(input('digite o ano de limite que deseja filtrar os adoções: '))
             
-            for x in range(len(geral)):
-                ano=geral[x][11]
-                ano=ano[-4:]
-                ano=int(ano)
-                if (ano >=AnoInicio and ano <=AnoFim) and (geral[x][9]=='s' or geral[x][9]=='S'):
-                    print(cont,'-',geral[x][0])
-                    cont=cont+1 
+            cont=0
+            opcoesFelinos = [] #irá armazenar os bixinhos validos
             
-            resposta=int(input('digite o número do felino que deseja consultar: '))
-
-            indice=resposta
+            print(f'Lista de Bixinhos Resgatados entre {AnoInicio} e {AnoFim}:')
+            for i in range(len(geral)):
+                ano_adocao = int(geral[i][11][-4:]) 
+                adotado = geral[i][9].lower()
+                if adotado == 's' and ano_adocao >= AnoInicio and ano_adocao <= AnoFim:
+                    print(f'{cont} - {geral[i][0]}')
+                    opcoesFelinos.append(i)  # Guardando o índice do animal para referência posterior
+                    cont += 1
+            if cont == 0:
+                print('Nenhum animal encontrado no intervalo de tempo especificado ou que tenha sido adotado.')
+                continue
+            #escolha do gato
+            resposta= int(input('Digite o número do animal que deseja consultar: '))
+            #validação
+            if resposta < 0 or resposta >= len(opcoesFelinos):
+                print('Opção inválida.')
+                continue
+            #resultado
+            indice=opcoesFelinos[resposta]
+            nomes_campos = {
+            0: 'Nome', 1: 'Sexo', 2: 'Idade', 3: 'Raça', 4: 'Cor Predominante',
+            5: 'Castrado', 6: 'Vacina FIV+', 7: 'Vacina FELV+', 8: 'Data de Resgate',
+            9: 'Adotado', 10: 'Lar Temporário', 11: 'Data de Adoção/Hospedagem',
+            12: 'Tutor', 13: 'Contato do Tutor', 14: 'Data da última Vacina',
+            15: 'Data da Última Desvermifugação', 16: 'Data último antipulgas',
+            17: 'Informações Extras'}
+            for y, valor in enumerate(geral[indice]):
+                campo = nomes_campos[y]
+                print(f'{campo}: {valor}')
+            print("Pressione qualquer tecla para continuar...")
+            msvcrt.getch()
             print('---------------------------------------------------------')
-            cont=1
-            if resposta==indice and (ano >=AnoInicio and ano <=AnoFim):
-                for y in range(len(geral[indice])): 
-                    if cont==1:
-                        campo='Nome'
-                    elif cont==2:
-                        campo='Sexo'
-                    elif cont==3:
-                        campo='Idade'
-                    elif cont==4:
-                        campo='Raça'
-                    elif cont==5:
-                        campo='Cor Predominante'
-                    elif cont==6:
-                        campo='Castrado'
-                    elif cont==7:
-                        campo='Vacina FIV+'
-                    elif cont==8:
-                        campo='Vacina FELV+'
-                    elif cont==9:
-                        campo='Data de Resgate' 
-                    elif cont==10:
-                        campo='Adotado' 
-                    elif cont==11:
-                        campo='Lar Temporário' 
-                    elif cont==12:
-                        campo='Data de Adoção/Hospedagem' 
-                    elif cont==13:
-                        campo='Tutor'    
-                    elif cont==14:
-                        campo='Contato do Tutor' 
-                    elif cont==15:
-                        campo='Data da última Vacina' 
-                    elif cont==16:
-                        campo='Data da Última Desvermifugação' 
-                    elif cont==17:
-                        campo='Data último antipulgas'
-                    elif cont==18:
-                        campo='Informações Extras' 
-                    print(campo,':',geral[indice][y])
-                    cont=cont+1
-                print("Pressione qualquer tecla para continuar...")
-                msvcrt.getch()
-                print('---------------------------------------------------------')
-
 
         elif resposta==0:
             encerrar=True
