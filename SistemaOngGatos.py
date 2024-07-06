@@ -1,12 +1,17 @@
 import csv
 import msvcrt
+arquivo_csv=('BaseDeDadosGatos.csv')
 
 #funções 
 
 #CARREGADOR
-def carregador():
-    arquivo=open('BaseDeDadosGatos.csv','w')
-    return arquivo
+def carregador(arquivo_csv):
+    geral = []
+    with open('BaseDeDadosGatos.csv', 'r', newline='') as arquivo_csv:
+        leitor = csv.reader(arquivo_csv)
+        for linha in leitor:
+            geral.append(linha)
+    return geral
 
 #1 Cadastrar felino
 def CadastrarFelino():
@@ -32,7 +37,7 @@ def CadastrarFelino():
     ultimoAntipulgas=input('digite a data do ultimo AntiPulgas (dia/mês/ano): ')
     infoExtra=input('digite qualquer informaçao extra aqui (se tiver): ')
     dadosCadastro=[nome,sexo,idade,raca,cor,castrado,Fiv,Felv,DataResgate,adotado,larTemp,dataAdocaoHospedagem,Tutor,contato,ultimaVacina,ultimaVermi,ultimoAntipulgas,infoExtra]
-    print(dadosCadastro)
+
     return dadosCadastro
     
 #2 Alterar status do felino
@@ -236,7 +241,6 @@ def Estatisticas(geral):
     print('---------------------------------------------------------')
 
 #5 Filtragem de dados
-
 def filtro(geral):
     encerrar=False
     #if resposta==1
@@ -382,22 +386,16 @@ def filtro(geral):
             print()
 
 #6 Salvar
-def salvar(geral):
-    arquivo.close()
-    print('arquivo salvo com sucesso!')
+def salvar(geral,arquivo_csv):
+    with open('BaseDeDadosGatos.csv', 'w', newline='') as arquivo_csv:
+        escritor = csv.writer(arquivo_csv)  
+        for linha in geral:
+            escritor.writerow(linha)
+    arquivo_csv.close()
 
 #main
 encerrar=False
-arquivo=carregador()
-geral=[]
-
-
-geral=[
-    ['Vito', 'm', 1, 'Sphynx', 'preto', 'n', 's', 's', '21/05/2023', 'n', 's', '28/07/2023', '', '', '', '', '', '*Pata direita frontal Manca'],
-    ['Juju', 'f', 10, 'Ragdoll', 'branca', 's', 'n', 'n', '10/09/2021', 's', 'n', '15/01/2022', '', '', '', '', '', ''],
-    ['Mozart', 'M', 7, 'Birmanês', 'branco', 'n', 's', 'n', '16/02/2019', 's', 'n', '28/03/2019', '', '', '', '', '', '*gosta de ouvir música classica']
-    
-]
+geral=carregador(arquivo_csv)
 
 #menu
 while encerrar!=True:
@@ -425,10 +423,12 @@ while encerrar!=True:
     elif resposta=='5':
         filtro(geral)
     elif resposta=='6':
-        salvar(geral)
+        salvar(geral,arquivo_csv)
+        print('Informações salvas com sucesso!')
     elif resposta=='7':
-        #salvar(geral)
+        salvar(geral,arquivo_csv)
         encerrar=True
+        print('Informações salvas com sucesso!')
         print('Encerrando o Programa...')
     else:
         print('ERRO! por favor digite a ação conforme o menu')
